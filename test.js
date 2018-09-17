@@ -107,6 +107,15 @@ describe('Deepr', function() {
       expect(res.add).to.equal('key');
       expect(res.type).to.equal(1);
     });
+
+    it('should add to empty array', function() {
+      const res = deepr.merge({
+        object: { key: 'val' },
+      }, {
+        object: '&=[]'
+      });
+      expect(utils.isEmptyArray(res.object)).to.equal(true);
+    });
   });
 
 });
