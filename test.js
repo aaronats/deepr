@@ -1,5 +1,6 @@
 const { expect } = require('chai');
-const { deepr, utils } = require('./src');
+const deepr = require('./src/deepr');
+const utils = require('./src/utils');
 
 /*
   TODO: Finish tests

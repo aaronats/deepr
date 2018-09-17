@@ -84,4 +84,4 @@ const mergeObject = (prev, next) => {
   return prev;
 }
 
-module.exports = merge;
+module.exports = { merge };
