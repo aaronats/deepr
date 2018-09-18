@@ -111,11 +111,11 @@ describe('Deepr', function() {
 
     it('should add one to the value', function() {
       const res = deepr.merge({
-        object: { up: 0 }
+        counts: { down: 0 }
       }, {
-        object: { up: '&+=1' }
+        counts: { up: '&+=1' }
       });
-      expect(res.object.up).to.equal(1);
+      expect(res.counts.up).to.equal(1);
     });
 
     it('should subtract one from the value', function() {
