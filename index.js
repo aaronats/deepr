@@ -68,8 +68,7 @@ const mergeObject = (prev, next) => {
           case /&\/=./.test(next[key]):
             prev[key] = (prev[key] || 0) / Number(next[key].split('=')[1]);
             break;
-          default:
-            prev[key] = next[key];
+            // default to prev value
         }
       } else {
         prev[key] = next[key];

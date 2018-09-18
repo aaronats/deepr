@@ -110,8 +110,12 @@ describe('Deepr', function() {
     });
 
     it('should add one to the value', function() {
-      const res = deepr.merge({ up: 0 }, { up: '&+=1' });
-      expect(res.up).to.equal(1);
+      const res = deepr.merge({
+        object: { up: 0 }
+      }, {
+        object: { up: '&+=1' }
+      });
+      expect(res.object.up).to.equal(1);
     });
 
     it('should subtract one from the value', function() {
