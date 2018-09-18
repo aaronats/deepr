@@ -39,10 +39,10 @@ const mergeObject = (prev, next) => {
   Object.keys(next).forEach(key => {
     if (is.object(next[key]) || is.array(next[key])) {
       if (is.array(prev[key])) {
-        prev[key] = prev[key] ? mergeArray(prev[key], next[key]) : next[key];
+        prev[key] = mergeArray(prev[key] || [], next[key]);
       }
       if (is.object(next[key])) {
-        prev[key] = prev[key] ? mergeObject(prev[key], next[key]) : next[key];
+        prev[key] = mergeObject(prev[key] || {}, next[key]);
       }
     } else {
       if (is.string(next[key])) {

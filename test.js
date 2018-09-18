@@ -110,9 +110,7 @@ describe('Deepr', function() {
     });
 
     it('should add one to the value', function() {
-      const res = deepr.merge({
-        counts: { down: 0 }
-      }, {
+      const res = deepr.merge({}, {
         counts: { up: '&+=1' }
       });
       expect(res.counts.up).to.equal(1);
