@@ -56,13 +56,13 @@ const mergeObject = (prev, next) => {
           case /&=\[\]/.test(next[key]):
             prev[key] = [];
             break;
-          case /&+=./.test(next[key]):
+          case /&\+=./.test(next[key]):
             prev[key] = (prev[key] || 0) + Number(next[key].split('=')[1]);
             break;
           case /&-=./.test(next[key]):
             prev[key] = (prev[key] || 0) - Number(next[key].split('=')[1]);
             break;
-          case /&*=./.test(next[key]):
+          case /&\*=./.test(next[key]):
             prev[key] = (prev[key] || 0) * Number(next[key].split('=')[1]);
             break;
           case /&\/=./.test(next[key]):

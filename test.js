@@ -1,6 +1,6 @@
 const is = require('is');
 const { expect } = require('chai');
-const deepr = require('./src/deepr');
+const deepr = require('./index');
 
 /*
   TODO: Finish tests
@@ -109,14 +109,26 @@ describe('Deepr', function() {
       expect(res.type).to.equal(1);
     });
 
-    it('should add to empty array', function() {
-      const res = deepr.merge({
-        object: { key: 'val' },
-      }, {
-        object: '&=[]'
-      });
-      expect(is.empty(res.object)).to.equal(true);
+    it('should add one to the value', function() {
+      const res = deepr.merge({ up: 0 }, { up: '&+=1' });
+      expect(res.up).to.equal(1);
     });
+
+    it('should subtract one from the value', function() {
+      const res = deepr.merge({ up: 0 }, { up: '&-=1' });
+      expect(res.up).to.equal(-1);
+    });
+
+    it('should multiply the value by 5', function() {
+      const res = deepr.merge({ up: 5 }, { up: '&*=5' });
+      expect(res.up).to.equal(25);
+    });
+
+    it('should divide the value by 5', function() {
+      const res = deepr.merge({ up: 25 }, { up: '&/=5' });
+      expect(res.up).to.equal(5);
+    });
+
   });
 
 });
