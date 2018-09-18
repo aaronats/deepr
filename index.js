@@ -1,34 +1,29 @@
-const {
-  isObject,
-  isArray,
-  isString,
-  isMatch
-} = require('./utils');
+const is = require('is');
 
 const merge = (prev, next) => {
   if (!next) return prev;
-  if (isObject(next)) return mergeObject(prev, next);
-  if (isArray(next)) return mergeArray(prev, next);
+  if (is.object(next)) return mergeObject(prev, next);
+  if (is.array(next)) return mergeArray(prev, next);
   return next;
 }
 
 const mergeArray = (prev, next) => {
-  if (isArray(prev)) {
-    if (isArray(next)) {
-      if (isString(next[0])) {
+  if (is.array(prev)) {
+    if (is.array(next)) {
+      if (is.string(next[0])) {
         switch (true) {
-          case isMatch(next[0], /&push/):
+          case /&push/.test(next[0]):
             prev.push(next[1]);
             return prev;
-          case isMatch(next[0], /&concat/):
+          case /&concat/.test(next[0]):
             return prev.concat(next[1]);
-          case isMatch(next[0], /&pop/):
+          case /&pop/.test(next[0]):
             prev.pop();
             return prev;
-          case isMatch(next[0], /&shift/):
+          case /&shift/.test(next[0]):
             prev.shift();
             return prev;
-          case isMatch(next[0], /&unshift/):
+          case /&unshift/.test(next[0]):
             prev.unshift(next[1]);
             return prev;
           default:
@@ -42,35 +37,35 @@ const mergeArray = (prev, next) => {
 
 const mergeObject = (prev, next) => {
   Object.keys(next).forEach(key => {
-    if (isObject(next[key]) || isArray(next[key])) {
-      if (isArray(prev[key])) {
+    if (is.object(next[key]) || is.array(next[key])) {
+      if (is.array(prev[key])) {
         prev[key] = prev[key] ? mergeArray(prev[key], next[key]) : next[key];
       }
-      if (isObject(next[key])) {
+      if (is.object(next[key])) {
         prev[key] = prev[key] ? mergeObject(prev[key], next[key]) : next[key];
       }
     } else {
-      if (isString(next[key])) {
+      if (is.string(next[key])) {
         switch (true) {
-          case isMatch(next[key], /&delete/):
+          case /&delete/.test(next[key]):
             delete prev[key];
             break;
-          case isMatch(next[key], /&={}/):
+          case /&={}/.test(next[key]):
             prev[key] = {};
             break;
-          case isMatch(next[key], /&=\[\]/):
+          case /&=\[\]/.test(next[key]):
             prev[key] = [];
             break;
-          case isMatch(next[key], /&\+=/):
+          case /&+=./.test(next[key]):
             prev[key] = (prev[key] || 0) + Number(next[key].split('=')[1]);
             break;
-          case isMatch(next[key], /&\-=/):
+          case /&-=./.test(next[key]):
             prev[key] = (prev[key] || 0) - Number(next[key].split('=')[1]);
             break;
-          case isMatch(next[key], /&\*=/):
+          case /&*=./.test(next[key]):
             prev[key] = (prev[key] || 0) * Number(next[key].split('=')[1]);
             break;
-          case isMatch(next[key], /&\/=/):
+          case /&\/=./.test(next[key]):
             prev[key] = (prev[key] || 0) / Number(next[key].split('=')[1]);
             break;
           default:

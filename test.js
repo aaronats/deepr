@@ -1,6 +1,6 @@
+const is = require('is');
 const { expect } = require('chai');
 const deepr = require('./src/deepr');
-const utils = require('./src/utils');
 
 /*
   TODO: Finish tests
@@ -75,7 +75,7 @@ describe('Deepr', function() {
       }, {
         object: '&={}'
       });
-      expect(utils.isEmptyObject(res.object)).to.equal(true);
+      expect(is.empty(res.object)).to.equal(true);
     });
 
     it('should set to empty array', function() {
@@ -84,7 +84,7 @@ describe('Deepr', function() {
       }, {
         object: '&=[]'
       });
-      expect(utils.isEmptyArray(res.object)).to.equal(true);
+      expect(is.empty(res.object)).to.equal(true);
     });
   });
 
@@ -115,7 +115,7 @@ describe('Deepr', function() {
       }, {
         object: '&=[]'
       });
-      expect(utils.isEmptyArray(res.object)).to.equal(true);
+      expect(is.empty(res.object)).to.equal(true);
     });
   });
 
