@@ -79,4 +79,23 @@ const mergeObject = (prev, next) => {
   return prev;
 }
 
-module.exports = { merge };
+const isDestructiveMethod = (val) => {
+  if (!is.string(val)) return false;
+  switch (true) {
+    case /&delete/.test(val):
+      return true;
+    case /&={}/.test(val):
+      return true;
+    case /&=\[\]/.test(val):
+      return true;
+    default:
+      return false;
+  }
+}
+
+const isDestructive = (val) => {
+  const method = is.array(val) ? val[0] : val;
+  return isDestructiveMethod(method);
+}
+
+module.exports = { merge, isDestructive };

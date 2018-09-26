@@ -133,4 +133,11 @@ describe('Deepr', function() {
 
   });
 
+  describe('isDestructive', function() {
+    it('should return true if a method is destructive', function() {
+      const res = deepr.isDestructive('&delete');
+      expect(res).to.be.true;
+    });
+  });
+
 });
