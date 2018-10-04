@@ -16,6 +16,14 @@ describe('Deepr', function() {
         expect(arr.length).to.equal(1);
         expect(arr[0]).to.equal(2);
       });
+
+      it('should set value of missing prev key', function() {
+        const obj = deepr.merge({}, {
+          arr: [2]
+        });
+        expect(obj.arr.length).to.equal(1);
+        expect(obj.arr[0]).to.equal(2);
+      });
     });
 
     describe('&push', function() {

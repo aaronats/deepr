@@ -38,7 +38,7 @@ const mergeArray = (prev, next) => {
 const mergeObject = (prev, next) => {
   Object.keys(next).forEach(key => {
     if (is.object(next[key]) || is.array(next[key])) {
-      if (is.array(prev[key])) {
+      if (is.array(next[key])) {
         prev[key] = mergeArray(prev[key] || [], next[key]);
       }
       if (is.object(next[key])) {
