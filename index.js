@@ -7,6 +7,17 @@ const merge = (prev, next) => {
   return next;
 }
 
+const removeBy = (arr, cond) => {
+  if (!is.object(cond)) return;
+  if (!cond.key || !cond.vals || !is.array(cond.vals)) return;
+  cond.vals.forEach((val) => {
+    const idx = arr.findIndex(obj => obj[cond.key] === val);
+    if (idx !== -1) {
+      arr.splice(idx, 1);
+    }
+  });
+}
+
 const mergeArray = (prev, next) => {
   if (is.array(prev)) {
     if (is.array(next)) {
@@ -26,6 +37,12 @@ const mergeArray = (prev, next) => {
           case /&unshift/.test(next[0]):
             prev.unshift(next[1]);
             return prev;
+          case /&removeAt/.test(next[0]):
+            prev.splice(next[1], 1);
+            return prev;
+          case /&removeBy/.test(next[0]):
+            removeBy(prev, next[1]);
+            return prev;
           default:
             return next;
         }
@@ -39,7 +56,18 @@ const mergeObject = (prev, next) => {
   Object.keys(next).forEach(key => {
     if (is.object(next[key]) || is.array(next[key])) {
       if (is.array(next[key])) {
-        prev[key] = mergeArray(prev[key] || [], next[key]);
+        if (/&=/.test(next[key][0])) {
+          prev[key] = next[key][1];
+        } else {
+          prev[key] = mergeArray(prev[key] || [], next[key]);
+        }
+      }
+      if (is.array(next[key])) {
+        if (/&=/.test(next[key][0])) {
+          prev[key] = next[key][1];
+        } else {
+          prev[key] = mergeArray(prev[key] || [], next[key]);
+        }
       }
       if (is.object(next[key])) {
         prev[key] = mergeObject(prev[key] || {}, next[key]);

@@ -2,10 +2,6 @@ const is = require('is');
 const { expect } = require('chai');
 const deepr = require('./index');
 
-/*
-  TODO: Finish tests
-*/
-
 describe('Deepr', function() {
 
   describe('Arrays', function() {
@@ -65,6 +61,26 @@ describe('Deepr', function() {
         expect(arr.join()).to.equal([0,1,2,3].join());
       });
     });
+
+    describe('&removeAt', function() {
+      it('should remove a value at index', function() {
+        const arr = deepr.merge([1,2,3], ['&removeAt', 1]);
+        expect(arr.length).to.equal(2);
+        expect(arr.join()).to.equal([1,3].join());
+      });
+    });
+
+    describe('&removeBy', function() {
+      it('should remove a value by key', function() {
+        const arr = deepr.merge([
+          { test: 1 },
+          { test: 2 }
+        ], ['&removeBy', {
+          key: 'test',
+          vals: [1]
+        }]);
+      });
+    });
   });
 
   describe('Objects', function() {
@@ -75,6 +91,15 @@ describe('Deepr', function() {
         nested: { key: 'deep val' }
       });
       expect(res.nested.key).to.equal('deep val');
+    });
+
+    it('should overwrite the object', function() {
+      const res = deepr.merge({
+        object: { key: 'val' },
+      }, {
+        object: ['&=', { key: 'new val' }]
+      });
+      expect(res.object.key).to.equal('new val');
     });
 
     it('should set to empty object', function() {
