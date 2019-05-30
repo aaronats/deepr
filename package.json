@@ -1,18 +1,16 @@
 {
   "name": "deepr",
   "version": "1.1.0",
-  "description": "Deep Javascript Object Merge",
+  "description": "Deep recursive object merge with superpowers",
+  "repository": "https://github.com/aaronats/deepr",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test.js && exit"
+    "test": "mocha test && exit"
   },
-  "author": "aaronats",
-  "license": "ISC",
-  "dependencies": {
-    "is": "^3.2.1"
-  },
+  "author": "Aaron Strachan <aaronats@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
-    "chai": "^4.1.2",
-    "mocha": "^5.2.0"
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4"
   }
 }
