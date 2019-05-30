@@ -1,6 +1,6 @@
 # Deepr
 
-Deep recursive object merge with built-in API for object mutations.
+Zero dependency, deep recursive object merge with built-in API for object mutations.
 
 ## Installation
 
