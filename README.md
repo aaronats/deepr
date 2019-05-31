@@ -11,7 +11,7 @@ npm install deepr --save
 ## Quickstart
 
 ```javascript
-const deepr = require('deepr);
+const deepr = require('deepr');
 
 const obj = {
   string: 'hello',
