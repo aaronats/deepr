@@ -54,9 +54,9 @@ const result = deepr.merge(obj, {
 */
 ```
 
-### Primatives
+### Primitives
 
-To update or set a primative, simply set the new value.
+To update or set a primitive, simply set the new value.
 
 ```javascript
 const obj = {
@@ -101,13 +101,13 @@ const obj = {
 };
 
 const result = deepr.merge(obj, {
-  object: ['&=', { newkey: 'newvalue' }]
+  nested: ['&=', { newkey: 'newvalue' }]
 });
 
 /*
   result...
   {
-    object: {
+    nested: {
       newkey: 'newvalue'
     }
   }
@@ -214,17 +214,17 @@ const result = deepr.merge(obj, {
 
 ### Delete
 
-To delte a key from an object use ``&delete``.
+To delete a key from an object use ``&delete``.
 
 ```javascript
 const obj = {
   object: { key: 'value' },
-  primative: 'string'
+  primitive: 'string'
 };
 
 const result = deepr.merge(obj, {
   object: { key: '&delete' },
-  primative: '&delete'
+  primitive: '&delete'
 });
 
 /*
@@ -245,13 +245,13 @@ Set the value to null, empty object or empty array. Note that each original type
 
 ```javascript
 const obj = {
-  primative: 'string',
+  primitive: 'string',
   object: { key: 'val' },
   array: [1, 2, 3]
 };
 
 const result = deepr.merge(obj, {
-  primative: '&=[]',
+  primitive: '&=[]',
   object: '&=null',
   array: '&={}'
 });
@@ -259,7 +259,7 @@ const result = deepr.merge(obj, {
 /*
   result...
   {
-    primative: [],
+    primitive: [],
     object: null,
     array: {},
   }
